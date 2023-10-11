@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import css from "styled-jsx/css";
+import {css} from "styled-components";
 
 export const ButtonStyle = css`
     background-color: transparent;
@@ -23,6 +23,18 @@ export const ButtonStyle = css`
         padding: 15px 30px;
         svg{
             height: 20px;
+        }
+    `}
+    ${props => props.size === 's' && css`
+        background: rgb(255,255,255);
+        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(223,224,222,1) 49%, rgba(160,199,157,1) 100%);
+        padding: 5px 10px;
+        width: 60px;
+        height: 30px;
+        justify-content: center;
+        svg{
+            height: 20px;
+            color: #000;
         }
     `}
 `;
