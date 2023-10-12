@@ -4,6 +4,7 @@ import fs from 'fs';
 import mime from 'mime-types';
 import mongoose from 'mongoose';
 import { mongooseConnect } from '@/lib/mongoose';
+import { isAdmin } from './auth/[...nextauth]';
 
 const bucketName = 'vlad-ecommerce';
 
