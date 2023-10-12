@@ -8,6 +8,9 @@ const StyledTable = styled.table`
         color: #24920B;
         font-size: 0.9rem;
     }
+    td{
+        border-top: 2px solid #ddd;
+    }
 `;
 
 export default function Table(props){
