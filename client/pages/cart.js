@@ -1,11 +1,14 @@
 import { CartContext } from "@/components/CartContext";
+import CenterMenu from "@/components/CenterMenu";
 import Header from "@/components/Header";
 import Input from "@/components/Input";
 import PrimaryButton from "@/components/PrimaryButton";
 import Table from "@/components/Table";
 import axios from "axios";
+import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import {css} from "styled-components";
 
 const ColumnsWrapper = styled.div`
     display: grid;
@@ -19,6 +22,9 @@ const Box = styled.div`
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(235,241,235,1) 49%, rgba(217,217,217,1) 100%);
     border-radius: 10px;
     padding: 30px;
+    ${props => props.type === 'confirmation' && css`
+        text-align: center;
+    `}
 `;
 
 const ProductNameCell = styled.td`
@@ -45,6 +51,11 @@ export default function CartPage(){
     const [city, setCity] = useState('');
     const [address, setAddress] = useState('');
     const [postCode, setPostCode] = useState('');
+    const [isSuccess, setIsSuccess] = useState(false);
+
+    useEffect(() => {
+        setIsSuccess(window.location.href.includes('success'));
+    }, []);
 
     useEffect(() => {
         if(cartProducts.length > 0){
@@ -64,10 +75,38 @@ export default function CartPage(){
         removeProduct(id);
     }
 
+    async function goToPayment(){
+        const response = await axios.post('/api/checkout', {
+            name,phone,email,city,address,postCode,
+            cartProducts,
+        });
+        if(response.data.url){
+            window.location = response.data.url;
+        }
+    }
+
+    async function startConfetti(){
+        await confetti();
+    }
+
     let total = 0;
     for(const productId of cartProducts){
         const price = products.find(p => p._id === productId)?.price || 0;
         total += price;
+    }
+
+    if(isSuccess){
+        return(
+            <>
+                <Header />
+                <CenterMenu>
+                    <Box type="confirmation">
+                        <h2>Thank you for your order!</h2>
+                        <p>Check your email for more information</p>
+                    </Box>
+                </CenterMenu>
+            </>
+        )
     }
 
     return(
@@ -119,15 +158,13 @@ export default function CartPage(){
                 {!!cartProducts?.length && (
                     <Box>
                         <h2>Order Information</h2>
-                        <form method="post" action="/api/checkout">
                             <Input type="text" placeholder="Name" value={name} name="name" onChange={ev => setName(ev.target.value)} />
                             <Input type="text" placeholder="Phone Number" value={phone} name="phone" onChange={ev => setPhone(ev.target.value)} />
                             <Input type="text" placeholder="E-mail" value={email} name="email" onChange={ev => setEmail(ev.target.value)} />
                             <Input type="text" placeholder="City" value={city} name="city" onChange={ev => setCity(ev.target.value)} />
                             <Input type="text" placeholder="Address" value={address} name="address" onChange={ev => setAddress(ev.target.value)} />
                             <Input type="text" placeholder="Post Code" value={postCode} name="postCode" onChange={ev => setPostCode(ev.target.value)} />                                               
-                            <PrimaryButton size="l" type="submit" >Checkout</PrimaryButton>
-                        </form>
+                            <PrimaryButton size="l" onClick={goToPayment} >Checkout</PrimaryButton>
                     </Box>
                 )}
             </ColumnsWrapper>
