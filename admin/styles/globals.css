@@ -28,15 +28,16 @@ label{
 }
 
 table.basic{
-    @apply w-full;
+    @apply w-full shadow-md rounded-sm;
 }
 
 table.basic tr td{
     @apply border border-gray-300 p-1;
 }
 
-table.basic thead tr td{
-    @apply bg-blue-200;
+table.basic thead tr td,
+table.basic thead tr th{
+    @apply bg-blue-200 uppercase border-b border-gray-500 font-bold;
 }
 
 table.basic a{
