@@ -26,8 +26,8 @@ export const ButtonStyle = css`
         }
     `}
     ${props => props.size === 's' && css`
-        background: rgb(255,255,255);
-        background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(223,224,222,1) 49%, rgba(160,199,157,1) 100%);
+        background: rgb(192,199,191);
+        background: linear-gradient(90deg, rgba(192,199,191,1) 0%, rgba(193,250,207,1) 50%, rgba(0,255,46,1) 100%);
         padding: 5px 10px;
         width: 60px;
         height: 30px;

@@ -9,6 +9,8 @@ const OrderSchema = new Schema({
     address:String,
     postCode:String,
     paid:Boolean,
+}, {
+    timestamps: true,
 });
 
 export const Order = models?.Order || model('Order', OrderSchema);

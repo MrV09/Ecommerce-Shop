@@ -43,7 +43,7 @@ const QuantityCell = styled.td`
 
 
 export default function CartPage(){
-    const {cartProducts, addProduct, removeProduct} = useContext(CartContext);
+    const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext);
     const [products, setProducts] = useState([]);
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -54,10 +54,6 @@ export default function CartPage(){
     const [isSuccess, setIsSuccess] = useState(false);
 
     useEffect(() => {
-        setIsSuccess(window.location.href.includes('success'));
-    }, []);
-
-    useEffect(() => {
         if(cartProducts.length > 0){
             axios.post('/api/cart', {ids:cartProducts}).then(response => {
                 setProducts(response.data);
@@ -66,6 +62,16 @@ export default function CartPage(){
             setProducts([]);
         }
     }, [cartProducts]);
+
+    useEffect(() => {
+        if(typeof window === 'undefined'){
+            return;
+        }
+        if(window?.location.href.includes('success')){
+            setIsSuccess(true);
+            clearCart();
+        }
+    }, []);
 
     function addMoreProducts(id){
         addProduct(id);
