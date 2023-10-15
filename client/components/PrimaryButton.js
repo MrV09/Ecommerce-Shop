@@ -46,6 +46,12 @@ export const ButtonStyle = css`
         justify-content: center;
         color: #000;
     `}
+    ${props => props.type === 'red' && css`
+        background: rgb(254,218,218);
+        background: linear-gradient(90deg, rgba(254,218,218,1) 0%, rgba(247,121,115,1) 44%, rgba(255,11,11,1) 100%);
+        justify-content: center;
+        color: #000;
+    `}
 `;
 
 
