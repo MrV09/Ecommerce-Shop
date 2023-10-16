@@ -3,12 +3,13 @@ import PrimaryButton from "./PrimaryButton";
 import CartIcon from "./CartIcon";
 import { useContext } from "react";
 import { CartContext } from "./CartContext";
+import Link from "next/link";
 
 const ProductWrapper = styled.div`
 
 `;
 
-const Box = styled.div`
+const Box = styled(Link)`
     background: rgb(255,255,255);
     background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(235,241,235,1) 49%, rgba(217,217,217,1) 100%);
     padding: 20px;
@@ -23,8 +24,10 @@ const Box = styled.div`
     }
 `;
 
-const Title = styled.h2`
+const Title = styled(Link)`
     font-weight: bold;
+    color: inherit;
+    text-decoration: none;
     font-size: 0.9rem;
     margin: 0;
     height: 30px;
@@ -49,10 +52,10 @@ const Price = styled.h2`
 
 export default function ProductBox({_id, name, description, price, images,}) {
     const {addProduct} = useContext(CartContext);
-    const url = '/product/'+_id;
+    const url = '/products/'+_id;
     return (
         <ProductWrapper>
-            <Box>
+            <Box href={url}>
                 <img src={images[0]} alt=""/>
             </Box>
             <TitleBox>
