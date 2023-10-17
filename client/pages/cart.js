@@ -5,7 +5,7 @@ import Input from "@/components/Input";
 import PrimaryButton from "@/components/PrimaryButton";
 import Table from "@/components/Table";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useSession } from "next-auth/react";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import {css} from "styled-components";
@@ -52,6 +52,7 @@ export default function CartPage(){
     const [address, setAddress] = useState('');
     const [postCode, setPostCode] = useState('');
     const [isSuccess, setIsSuccess] = useState(false);
+    const {data: session} = useSession();
 
     useEffect(() => {
         if(cartProducts.length > 0){
@@ -71,15 +72,21 @@ export default function CartPage(){
             setIsSuccess(true);
             clearCart();
         }
-        axios.get('/api/client_data').then(response => {
-            setName(response.data.name);
-            setEmail(response.data.email);
-            setPhone(response.data.phone);
-            setCity(response.data.city);
-            setAddress(response.data.address);
-            setPostCode(response.data.postCode);
-        });
     }, []);
+
+    useEffect(() => {
+        if (!session) {
+          return;
+        }
+        axios.get('/api/client_data').then(response => {
+          setName(response.data.name);
+          setPhone(response.data.phone);
+          setEmail(response.data.email);
+          setCity(response.data.city);
+          setAddress(response.data.address);
+          setPostCode(response.data.postCode);
+        });
+      }, [session]);
 
     function addMoreProducts(id){
         addProduct(id);

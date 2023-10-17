@@ -8,6 +8,7 @@ import Input from "@/components/Input";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { set } from "mongoose";
+import Order from "@/components/Order";
 
 const Title = styled.h1`
     font-size: 2em;
@@ -29,6 +30,7 @@ export default function AccountPage(){
     const [city, setCity] = useState('');
     const [address, setAddress] = useState('');
     const [postCode, setPostCode] = useState('');
+    const [orders, setOrders] = useState([]);
 
     async function logout(){
         await signOut({
@@ -46,15 +48,21 @@ export default function AccountPage(){
     }
 
     useEffect(() => {
+        if (!session) {
+            return;
+        }
         axios.get('/api/client_data').then(response => {
             setName(response.data.name);
-            setEmail(response.data.email);
             setPhone(response.data.phone);
+            setEmail(response.data.email);
             setCity(response.data.city);
             setAddress(response.data.address);
             setPostCode(response.data.postCode);
         });
-    }, []);
+        axios.get('/api/orders').then(response => {
+            setOrders(response.data);
+        });
+    }, [session]);
 
     return(
         <>
@@ -63,7 +71,14 @@ export default function AccountPage(){
                 <Wrapper>
                     <div>
                         <Box>
-                            <Title>My Account</Title>
+                            <div>
+                                {orders.length === 0 && (
+                                    <p>Sign in to see your orders!</p>
+                                )}
+                                {orders.length > 0 && orders.map(o => (
+                                    <Order {...o}/>
+                                ))}
+                            </div>
                         </Box>
                     </div>
                     <div>

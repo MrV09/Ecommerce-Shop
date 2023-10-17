@@ -5,11 +5,10 @@ import { ClientData } from "@/models/ClientData";
 
 export default async function handler(req, res){
     await mongooseConnect();
+    const {user} = await getServerSession(req, res, authOptions);
 
     if(req.method === 'PUT'){
-        const {user} = await getServerSession(req, res, authOptions);
         const clientData = await ClientData.findOne({userEmail:user.email});
-
         if(clientData){
             res.json(await ClientData.findByIdAndUpdate(clientData._id, req.body));
         }else{
@@ -18,7 +17,6 @@ export default async function handler(req, res){
     }
 
     if(req.method === 'GET'){
-        const {user} = await getServerSession(req, res, authOptions);
         const clientData = await ClientData.findOne({userEmail:user.email});
         res.json(clientData);
     }
