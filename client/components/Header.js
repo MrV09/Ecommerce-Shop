@@ -9,8 +9,12 @@ const StyledHeader = styled.header`
     background: linear-gradient(90deg, rgba(142,255,135,1) 0%, rgba(30,175,26,1) 38%, rgba(8,190,50,1) 100%);
 `;
 const Logo = styled(Link)`
-    color: #fff;
-    text-decoration: none;
+    width: 100px;
+    height: 100px;
+    img{
+        max-width: 100%;
+        max-height: 100px;
+    }
 `;
 const Wrapper = styled.div`
     display: flex;
@@ -29,6 +33,7 @@ const NavLink = styled(Link)`
     border-radius: 30px;
     font-weight: 600;
     text-decoration: none;
+    align-self: center;
 `;
 
 export default function Header() {
@@ -37,9 +42,11 @@ export default function Header() {
         <StyledHeader>
             <CenterMenu>
                 <Wrapper>
-                    <Logo href={'/'}>
-                        Goal Store
-                    </Logo>
+                    <div>
+                        <Logo href={'/'}>
+                            <img src="https://vlad-ecommerce.s3.eu-north-1.amazonaws.com/logo_alb.png" />
+                        </Logo>
+                    </div>
                     <StyledNav>
                         <NavLink href={'/'}>Home</NavLink>
                         <NavLink href={'/categories'}>Categories</NavLink>
@@ -47,7 +54,7 @@ export default function Header() {
                         <NavLink href={'/account'}>My Account</NavLink>
                         <NavLink href={'/cart'}>Shopping Cart ({cartProducts.length})</NavLink>
                     </StyledNav>
-                    </Wrapper>    
+                </Wrapper>    
             </CenterMenu>
         </StyledHeader>
     );

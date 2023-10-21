@@ -2,8 +2,8 @@ import { useState } from "react";
 import styled, {css} from "styled-components"
 
 const Image = styled.img`
-max-width: 100%;
-max-height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 `;
 
 const ImageButtons = styled.div`
@@ -21,7 +21,7 @@ const Button = styled.div`
     `}
     background-color: #ccc;
     border-radius: 5px;
-    height: 80px;
+    height: 100px;
     padding: 5px;
     cursor: pointer;
 `;

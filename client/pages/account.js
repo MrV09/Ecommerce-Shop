@@ -7,7 +7,6 @@ import Box from "@/components/Box";
 import Input from "@/components/Input";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { set } from "mongoose";
 import Order from "@/components/Order";
 
 const Title = styled.h1`
@@ -20,6 +19,12 @@ const Wrapper = styled.div`
     grid-template-columns: 1.2fr .8fr;
     gap: 40px;
     margin: 40px 0;
+`;
+
+const Bg = styled.div`
+    background: rgb(169,255,157);
+    background: linear-gradient(90deg, rgba(169,255,157,1) 0%, rgba(106,233,138,1) 42%, rgba(0,244,44,1) 100%);
+    height: 100vh;
 `;
 
 export default function AccountPage(){
@@ -65,13 +70,14 @@ export default function AccountPage(){
     }, [session]);
 
     return(
-        <>
+        <Bg>
             <Header />
             <CenterMenu>
                 <Wrapper>
                     <div>
                         <Box>
                             <div>
+                                <Title>Orders History</Title>
                                 {orders.length === 0 && (
                                     <p>Sign in to see your orders!</p>
                                 )}
@@ -102,7 +108,7 @@ export default function AccountPage(){
                     </div>
                 </Wrapper>
             </CenterMenu>        
-        </>
+        </Bg>
     );
 
 }
