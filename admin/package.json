@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^2.0.0",
     "@aws-sdk/client-s3": "^3.423.0",
     "axios": "^1.5.1",
+    "date-fns": "^2.30.0",
     "mime-types": "^2.1.35",
     "mongodb": "^6.1.0",
     "mongoos": "^0.0.1-security",

@@ -1,0 +1,15 @@
+.tile{
+    @apply shadow-md p-4;
+}
+
+.header{
+    @apply font-bold uppercase text-center;
+}
+
+.data{
+    @apply text-center text-xl font-bold text-blue-400 my-2 mt-2;
+}
+
+.data_2{
+    @apply text-center text-sm font-medium text-gray-600 my-2
+}
