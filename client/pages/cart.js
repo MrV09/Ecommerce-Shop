@@ -44,6 +44,9 @@ const Bg = styled.div`
     height: 100vh;
 `;
 
+const QuantityCell = styled.td`
+`;
+
 
 export default function CartPage(){
     const {cartProducts, addProduct, removeProduct, clearCart} = useContext(CartContext);
