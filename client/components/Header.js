@@ -49,7 +49,6 @@ export default function Header() {
                     </div>
                     <StyledNav>
                         <NavLink href={'/'}>Home</NavLink>
-                        <NavLink href={'/categories'}>Categories</NavLink>
                         <NavLink href={'/products'}>All Products</NavLink>
                         <NavLink href={'/account'}>My Account</NavLink>
                         <NavLink href={'/cart'}>Shopping Cart ({cartProducts.length})</NavLink>

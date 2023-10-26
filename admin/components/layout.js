@@ -1,5 +1,5 @@
 import Navigation from "@/components/Navigation";
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn} from "next-auth/react"
 
 export default function Layout({children}) {
   const { data: session } = useSession();
